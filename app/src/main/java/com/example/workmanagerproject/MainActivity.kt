@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!android.provider.Settings.canDrawOverlays(applicationContext)) {
             Log.v("App", "Requesting Permission" + android.provider.Settings.canDrawOverlays(applicationContext));
-          
+
             intent =  Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + getApplicationContext().getPackageName()));
 
