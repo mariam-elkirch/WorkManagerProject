@@ -1,5 +1,6 @@
 package com.example.workmanagerproject
 
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
@@ -28,23 +29,23 @@ class MainActivity : AppCompatActivity() {
         checkDrawOverlayPermission()
         val reminderRequest = OneTimeWorkRequest.Builder(OneTimeWorker::class.java)
             .setInitialDelay(20, TimeUnit.SECONDS)
-
             .addTag("alarms")
             .build()
-        WorkManager.getInstance().enqueue(reminderRequest)
+        WorkManager.getInstance(this).enqueue(reminderRequest)
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    fun checkDrawOverlayPermission() {
-        Log.v("App", "Package Name: " + getApplicationContext().getPackageName());
 
+    private fun checkDrawOverlayPermission() {
 
         if (!android.provider.Settings.canDrawOverlays(applicationContext)) {
             Log.v("App", "Requesting Permission" + android.provider.Settings.canDrawOverlays(applicationContext));
 
             intent =  Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:" + getApplicationContext().getPackageName()));
+                Uri.parse("package:" + applicationContext.packageName));
+            val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+            resultLauncher.launch(intent)
 
-            startActivityForResult(intent, 200);
+
+
         } else {
             Log.v("App", "We already have permission for it.");
 

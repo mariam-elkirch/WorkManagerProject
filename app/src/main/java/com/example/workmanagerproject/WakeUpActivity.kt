@@ -3,7 +3,6 @@ package com.example.workmanagerproject
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
 import android.os.Build
@@ -11,8 +10,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.MotionEventCompat
@@ -21,9 +18,7 @@ import androidx.core.view.MotionEventCompat
 class WakeUpActivity : AppCompatActivity() {
     lateinit var objectAnimator : ObjectAnimator
     private lateinit var textScreen : View
-    val DEFAULT_ANIMATION_DURATION = 2500L
-    @RequiresApi(Build.VERSION_CODES.O_MR1)
-    @SuppressLint("ServiceCast")
+    private val DEFAULT_ANIMATION_DURATION = 2500L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wake_up)
@@ -42,7 +37,7 @@ class WakeUpActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.black)
         )
 
-        objectAnimator.repeatCount = 1000
+        objectAnimator.repeatCount = 10000
         objectAnimator.repeatMode = ValueAnimator.REVERSE
 
         objectAnimator.duration = DEFAULT_ANIMATION_DURATION
